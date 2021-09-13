@@ -1,0 +1,30 @@
+{
+  "name": "mediafirefetchtreefolder",
+  "version": "1.0.0",
+  "description": "Fetch files on Mediafire folder",
+  "main": "index.js",
+  "bin": {
+    "get_mediafire_urls": "bin/cli.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Sirherobrine23/MediafireFetchTreeFolder.git"
+  },
+  "keywords": [],
+  "author": "Matheus Sampaio Queiroga",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Sirherobrine23/MediafireFetchTreeFolder/issues"
+  },
+  "homepage": "https://github.com/Sirherobrine23/MediafireFetchTreeFolder#readme",
+  "dependencies": {
+    "chromium": "^3.0.2",
+    "jsdom": "^17.0.0",
+    "minimist": "^1.2.5",
+    "node-fetch": "^3.0.0",
+    "puppeteer": "^10.2.0"
+  }
+}
