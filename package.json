@@ -23,8 +23,8 @@
   "dependencies": {
     "chromium": "^3.0.2",
     "jsdom": "^17.0.0",
-    "minimist": "^1.2.5",
+    "minimist": "^1.2.6",
     "node-fetch": "^3.1.1",
-    "puppeteer": "^10.2.0"
+    "puppeteer": "^14.1.1"
   }
 }
