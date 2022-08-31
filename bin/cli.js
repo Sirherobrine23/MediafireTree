@@ -4,9 +4,7 @@ const path = require("path");
 
 const Args = require("minimist")(process.argv.slice(2));
 const GetURlsDownloads = require("../index");
-
-if (typeof fetch === "undefined") global.fetch = (...args) => import("node-fetch").then(mod => mod.default(...args));
-
+const axios = require("axios").default;
 const help = [
     "Usage:",
     "  get_mediafire_urls [options]",
@@ -28,6 +26,11 @@ if (Args.h || Args.help) {
     process.exit(0);
 }
 
+const getBuffer = (url) => axios.get(url, {
+    responseEncoding: "arraybuffer",
+    responseType: "arraybuffer"
+  }).then(({data}) => Buffer.from(data));
+
 // Run
 const MediafireID = (Args.i || Args.id);
 if (!(MediafireID)) {
@@ -43,7 +46,7 @@ GetURlsDownloads(MediafireID).then(async function (Data) {
             console.log(`Downloading ${file.name}`);
             try {
                 const FileOut = path.join(Output, file.name);
-                const DataBuffer = Buffer.from(await (await fetch(file.url)).arrayBuffer());
+                const DataBuffer = await getBuffer(file.url);
                 fs.writeFileSync(FileOut, DataBuffer);
                 console.log(`Downloaded ${file.name}`);
             } catch (err) {

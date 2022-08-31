@@ -1,6 +1,10 @@
 const { JSDOM } = require("jsdom");
-const ChromiumLauch = require("./src/chromium")
-if (typeof fetch === "undefined") global.fetch = (...args) => import("node-fetch").then(mod => mod.default(...args));
+const ChromiumLauch = require("./src/chromium");
+const axios = require("axios").default;
+const getBuffer = (url) => axios.get(url, {
+    responseEncoding: "arraybuffer",
+    responseType: "arraybuffer"
+  }).then(({data}) => Buffer.from(data));
 
 async function Folder(FolderURL = "") {
     // Link test: const link_reg = new RegExp(/^(http|https):\/\/(?:www\.)?(mediafire)\.com\/[0-9a-z]+(\/.*)/gm)
@@ -29,7 +33,7 @@ async function Folder(FolderURL = "") {
 }
 
 async function OneFile(url = "") {
-    const HtmlBody = await (await fetch(url)).text();
+    const HtmlBody = (await getBuffer(url)).toString("utf8");
     const { document } = (new JSDOM(HtmlBody).window);
     const Name = document.querySelector("body > div.mf-dlr.page.ads-alternate > div.content > div.center > div > div.dl-info > div.sidebar > div.apps > div > div").innerHTML.replace(/\n/gi, "").trim();
     const Href = document.querySelector("#downloadButton").href;
